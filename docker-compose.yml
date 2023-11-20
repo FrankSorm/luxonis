@@ -1,0 +1,28 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '8081:8081'
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - '8080:8080'
+    depends_on:
+      - backend
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: db_luxonis,
+      POSTGRES_USER: db_user_luxonis
+      POSTGRES_PASSWORD: Hj2K#jhdsf112
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
